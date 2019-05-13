@@ -29,7 +29,7 @@ void chatterCallback(const sensor_msgs::JointState::ConstPtr& msg)
 
 int main(int argc, char** argv) {
 
-  std::string inputText;
+  std::string inputText, value;
 
   // this is used only when taking inputs from the terminal
   std::vector<std::string> splitString;
@@ -79,6 +79,7 @@ This is used to have the motors rotate
 
 -----------------------------------------------------------------------------*/
 
+    // Publishes joint_state to rostopic
     joint_pub.publish(joint_state);
     ros::spinOnce();
     loop_rate.sleep();
