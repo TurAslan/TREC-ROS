@@ -1,0 +1,12 @@
+<launch>
+<arg name="gui" default="False" />
+<param name="robot_description" textfile="$(find darwinop_urdf_tester)/darwinOP.urdf" />
+<param name="use_gui" value="$(arg gui)"/>
+
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+<node name="joint_moverDarwin" pkg="darwinop_urdf_tester" type="joint_moverDarwin" output="log" />
+<node name="rviz" pkg="rviz" type="rviz" args="~/home/catkin_ws/src/darwinop_urdf_tester/darwinOP.rviz" required="true" />
+</launch>
+
+
