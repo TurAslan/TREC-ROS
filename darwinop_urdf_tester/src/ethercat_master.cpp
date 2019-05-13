@@ -122,17 +122,17 @@ double splitToDouble(unsigned long lower, unsigned long higher, int ID){
 This function takes a double and splits it to the lower byte
 */
 int doubleToLower(double var){
-  int imanEE = (var+1.6)*LONGBYTE/3.2;
-  return imanEE & 0xFF;
+  int x = (var+1.6)*LONGBYTE/3.2;
+  return x & 0xFF;
 }
 
 /*
 This function takes a double and splits it to the higher byte
 */
 int doubleToHigher(double var){
-  int imanEE = (var+1.6)*LONGBYTE/3.2;
-  std::cout<<"Inside Higher: "<<imanEE<<'\n';
-  return (imanEE & 0xFF00) >> 8;
+  int x = (var+1.6)*LONGBYTE/3.2;
+  std::cout<<"Inside Higher: "<<x<<'\n';
+  return (x & 0xFF00) >> 8;
 }
 
 /*
@@ -274,7 +274,7 @@ void simpletest(char *ifname)
             while (ros::ok())  {
                //SOEM stuff----------------------------------------------------
                ec_send_processdata();
-               wkc = ec_receive_processdata(EC_TIMEOUTRET);
+               wkc = ec_receive_processdata(EC_TIMEOUTRET); // workcounter
                //SOEM ---------------------------------------------------------
 
                // takes the two split bytes from the arduino and combines them
@@ -285,8 +285,7 @@ void simpletest(char *ifname)
                                       ec_slave[0].inputs[ID*3+1], changeID(ID));
                }
 
-               //std::cout<<"jointstate[0] ="<<joint_state.position[8]<<std::endl;
-
+               // Publishes joint_state to rostopic
                joint_state.header.stamp = ros::Time::now();
                joint_pub.publish(joint_state);
                ros::spinOnce();
